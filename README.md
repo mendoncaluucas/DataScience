@@ -86,19 +86,19 @@ escolhendo `mendoncaluucas/DataScience` e o caminho `notebooks/<arquivo>.ipynb`.
 
 ### Localmente
 
-```bash
+```powershell
 git clone https://github.com/mendoncaluucas/DataScience.git
 cd DataScience
-python -m venv .venv
-.venv\Scripts\activate
+py -m venv .venv
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 jupyter lab notebooks/
 ```
 
 Dashboard:
 
-```bash
-python app/app.py
+```powershell
+py app/app.py
 ```
 
 Acesse `http://127.0.0.1:8050`.
@@ -112,14 +112,45 @@ filtros de tipo de hotel, segmento de mercado e faixa de antecedência.
 
 ### Fase 1 — Compreensão do Negócio
 
-[PREENCHER — como o Plotly/Dash apoia a definição de KPIs e o alinhamento
-com stakeholders]
+Esta fase não produz gráfico: produz uma pergunta. O papel da ferramenta aqui é
+encurtar o caminho entre a conversa com quem conhece o negócio e algo concreto
+de se olhar.
+
+| Como o Plotly/Dash apoia | Na prática |
+|---|---|
+| **Protótipo descartável** | Um painel provisório em Dash fica pronto em minutos. Mostrar um rascunho a quem decide revela desacordos que uma reunião não revelaria — é mais barato descobrir que o indicador está errado antes de construir o pipeline. |
+| **Definição de KPIs** | Tentar desenhar o indicador força a pergunta difícil: *o que exatamente conta como cancelamento?* Aqui, `is_canceled` reúne `Canceled` e `No-Show` — decisão que só aparece quando alguém precisa escrever a fórmula. |
+| **Registro da decisão** | Por ser código versionado, a definição do KPI fica rastreável. Seis meses depois o `git log` responde por que o número mudou — coisa que um painel editado no lugar não guarda. |
+
+**Objetivo de negócio definido nesta fase:** reduzir a taxa de cancelamento,
+identificando quais características da reserva se associam ao cancelamento.
+Ele é o critério que decide o que entra nas fases seguintes — a coluna
+`reservation_status`, por exemplo, só foi removida na Fase 3 porque este
+objetivo é *antecipar* o cancelamento, e não descrevê-lo depois do fato.
 
 ### Fase 2 — Compreensão dos Dados
 
-- **Extração:** `pandas.read_csv()` e demais conectores
-- **EDA:** `px.histogram`, `px.box`, `px.imshow` (correlação), `px.scatter_matrix`
-- **Notebook:** `notebooks/01_compreensao_dos_dados.ipynb`
+Notebook: `notebooks/01_compreensao_dos_dados.ipynb`
+([abrir no Colab](https://colab.research.google.com/github/mendoncaluucas/DataScience/blob/main/notebooks/01_compreensao_dos_dados.ipynb))
+
+**Extração** — quem conecta é o pandas; o Plotly desenha o que ele traz.
+`read_csv` aqui, mas também Excel, JSON, SQL, Parquet e APIs: qualquer fonte
+que o Python alcance.
+
+**Análise exploratória** — o equivalente aos painéis *Qualidade da Coluna* e
+*Perfil da Coluna* do Power Query, escrito em vez de clicado:
+
+| Recurso | O que respondeu neste dataset |
+|---|---|
+| `df.info()` / `df.describe()` | Estatísticas descritivas e tipos — 32 colunas, 4 delas com ausentes |
+| `df.isna()` + `px.bar` | Mapa visual de valores ausentes, em quatro intensidades |
+| `px.box` | Dispersão e atípicos — `lead_time` mediano de 113 dias entre canceladas contra 45 das mantidas |
+| `px.imshow` | Matriz de correlação com escala divergente e cinza no centro |
+
+**Hipóteses formuladas a partir da EDA** (exigidas pelo enunciado):
+
+1. Reservas com maior antecedência cancelam mais — **confirmada**, `r = +0,293`.
+2. Hóspedes com pedidos especiais cancelam menos — **confirmada**, `r = −0,235`.
 
 ### Fase 3 — Preparação dos Dados
 
@@ -161,6 +192,8 @@ campos `arrival_date_*`, condensados em `data_chegada`.
 
 ## Entregáveis
 
-- [ ] Apresentação de slides (`docs/slides.pdf`)
-- [ ] Código-fonte do projeto (este repositório)
-- [ ] Link para o dataset original (seção *Dataset*)
+- [x] **Apresentação de slides** — [`docs/slides.pdf`](docs/slides.pdf) · [`docs/slides.pptx`](docs/slides.pptx) (21 slides, com notas do apresentador)
+- [x] **Arquivo do projeto** — este repositório. O Plotly não gera um binário
+  como o `.pbix` do Power BI ou o `.twbx` do Tableau: o "arquivo do projeto" é o
+  código que reconstrói a análise inteira a partir do dataset original.
+- [x] **Link para o dataset original** — [Kaggle](https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand) (seção *Dataset*)

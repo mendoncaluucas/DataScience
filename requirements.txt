@@ -3,3 +3,7 @@ plotly>=5.24
 dash>=2.18
 jupyterlab>=4.2
 nbformat>=5.10
+
+# Exportacao dos graficos para PNG (secao final dos notebooks).
+# No Colab ja vem instalado; localmente e necessario.
+kaleido>=0.2.1
