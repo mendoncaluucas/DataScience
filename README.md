@@ -190,9 +190,35 @@ campos `arrival_date_*`, condensados em `data_chegada`.
 > O CSV preparado **não** é versionado: são 17 MB derivados, que o notebook
 > reproduz em segundos. A última célula da Fase 3 o gera e oferece o download.
 
+## Análise crítica: comparação com a atividade anterior
+
+A atividade anterior da disciplina — *"Preparação de Dados com CRISP-DM — ETL e
+EDA"*, sobre o dataset **Telco Customer Churn** — percorreu estas mesmas três
+fases com `pandas` + `matplotlib`/`seaborn`. A comparação é controlada: mudou a
+camada de visualização, não o método.
+
+| | Atividade anterior | Este trabalho |
+|---|---|---|
+| Dataset | Telco Customer Churn — 7.043 × 21 | Hotel Bookings — 119.390 × 32 |
+| Preparação | `pandas` | `pandas` — **exatamente o mesmo** |
+| Visualização | `matplotlib` + `seaborn` | Plotly Express + Graph Objects |
+| Gráficos | `countplot` · `boxplot` · `heatmap` | `px.bar` · `px.box` · `px.imshow` |
+| Resultado | figura PNG estática no notebook | gráfico interativo + dashboard Dash |
+| Entrega | notebook individual no Drive | repositório versionado, cinco integrantes |
+
+**O achado:** a preparação não mudou. As duas atividades limpam os dados com
+`fillna`, `replace` e `astype`. O Plotly entra *depois*, na visualização — e essa
+é a diferença arquitetural real em relação ao Power BI, onde o Power Query faz as
+duas coisas dentro da mesma ferramenta.
+
+**Sobre low-code:** a camada low-code do Plotly é o **Chart Studio**, que monta
+gráficos a partir de um CSV sem escrever código. Optamos pela camada de código
+por flexibilidade, reprodutibilidade e trabalho em equipe — ao custo de
+velocidade inicial e curva de aprendizado. O slide 22 detalha os sete critérios.
+
 ## Entregáveis
 
-- [x] **Apresentação de slides** — [`docs/slides.pdf`](docs/slides.pdf) · [`docs/slides.pptx`](docs/slides.pptx) (21 slides, com notas do apresentador)
+- [x] **Apresentação de slides** — [`docs/slides.pdf`](docs/slides.pdf) · [`docs/slides.pptx`](docs/slides.pptx) (23 slides, com notas do apresentador)
 - [x] **Arquivo do projeto** — este repositório. O Plotly não gera um binário
   como o `.pbix` do Power BI ou o `.twbx` do Tableau: o "arquivo do projeto" é o
   código que reconstrói a análise inteira a partir do dataset original.
