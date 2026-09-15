@@ -103,6 +103,11 @@ python app/app.py
 
 Acesse `http://127.0.0.1:8050`.
 
+O app lê o CSV da pasta `data/raw/` do próprio repositório, então **sobe em
+segundos e funciona sem internet** — só recorre ao GitHub se o arquivo local não
+existir. Traz quatro indicadores e quatro gráficos, todos recalculados pelos
+filtros de tipo de hotel, segmento de mercado e faixa de antecedência.
+
 ## Mapeamento CRISP-DM → Plotly
 
 ### Fase 1 — Compreensão do Negócio
