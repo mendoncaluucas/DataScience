@@ -1,0 +1,5 @@
+pandas>=2.2
+plotly>=5.24
+dash>=2.18
+jupyterlab>=4.2
+nbformat>=5.10

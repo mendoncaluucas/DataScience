@@ -1,0 +1,6 @@
+# O Colab grava notebooks com LF. Sem isto, o Git no Windows converte para CRLF
+# no checkout e o próximo save pelo Colab vira um diff do arquivo inteiro.
+*.ipynb text eol=lf
+
+# Dados: nunca converter fim de linha nem tentar diff de texto.
+*.csv -text

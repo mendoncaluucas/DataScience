@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# OneDrive
+*.tmp
+~$*
+
+# Dados grandes (descomente se o CSV passar de 50MB)
+# data/raw/*.csv
+
+# Arquivos gerados pelo notebook
+demonstracao_n1.html
+prints_n1.zip
+/prints/
+
+# Dataset preparado: 17 MB derivados, reproduzidos pelo notebook 02
+data/processed/*.csv
+hotel_bookings_limpo.csv
